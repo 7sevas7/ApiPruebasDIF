@@ -2,8 +2,6 @@
 using ApiPruebasDIF.DB.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using System.Diagnostics;
 
@@ -46,7 +44,7 @@ namespace ApiPruebasDIF.Controllers
                         insertList.Add(obj);
                         if (insertList.Count == 300)
                         {
-                            await __context.AddRangeAsync(insertList);
+                            await __context.UnidadesPresupuesto.AddRangeAsync(insertList);
                             __context.SaveChanges();
                             insertList.Clear();
                             __context.ChangeTracker.Clear();
@@ -70,7 +68,7 @@ namespace ApiPruebasDIF.Controllers
         public async Task<IActionResult> Gets()
         {
             List<UnidadesPresupuesto> lista = new List<UnidadesPresupuesto>();
-            lista = await __context.UnidadesPresupuesto.ToListAsync();
+            lista =  __context.UnidadesPresupuesto.ToList();
 
             return Ok(lista);
         }
@@ -82,7 +80,7 @@ namespace ApiPruebasDIF.Controllers
             string? Ids = Convert.ToString(id);
             List<UnidadesPresupuesto> lista = new List<UnidadesPresupuesto>();
 
-            lista = await  __context.UnidadesPresupuesto.Where(u => u.Cve_Rubro_Ingreso.Substring(2,2).Contains(Ids)).ToListAsync();
+            lista =   __context.UnidadesPresupuesto.Where(u => u.Cve_Rubro_Ingreso.Substring(2,2).Contains(Ids)).ToList();
 
             return StatusCode(StatusCodes.Status200OK,lista) ;
         }
