@@ -1,0 +1,6 @@
+@ApiPruebasDIF_HostAddress = http://localhost:5082
+
+GET {{ApiPruebasDIF_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
